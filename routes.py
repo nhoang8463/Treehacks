@@ -3,9 +3,9 @@ from flask_login import login_required, current_user, login_user, logout_user
 from werkzeug.urls import url_parse
 
 from .forms import LoginForm, RegisterForm
-from . import db'''
+#from . import db
 from flask import current_app as app
-from .models import User
+#from .models import User
 
 
 #this is the routing to the main home page
@@ -86,7 +86,7 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(username=form.username.data).username()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('signin'))
